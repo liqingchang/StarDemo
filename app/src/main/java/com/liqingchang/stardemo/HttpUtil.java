@@ -24,14 +24,12 @@ import java.util.Map;
 public class HttpUtil {
 
     /**
-     * TODO :context其实可以不用返回结果再处理，懒了
-     * @param context
      * @param url
      * @param data
      */
-    public static void post(Context context, String url, Map<String, String> data) {
+    public static String post(String url, Map<String, String> data) {
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("url");
+        HttpPost httpPost = new HttpPost(url);
 
         try {
             // 为httpPost设置HttpEntity对象
@@ -57,13 +55,14 @@ public class HttpUtil {
             } else {
                 sb.append("error");
             }
-            Toast.makeText(context, sb.toString(), Toast.LENGTH_SHORT).show();
+            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // 释放资源
             httpClient.getConnectionManager().shutdown();
         }
+        return null;
     }
 
 
